@@ -10,8 +10,8 @@ const routes = [
     },
     { 
         path:'/callback', 
-        comment:callback,
-        props: route => ({ code: route.code.q, state: route.state.q })
+        component: callback,
+        props: route => ({ code: route.query.code, state: route.query.state })
     }
 ]
 
@@ -23,9 +23,9 @@ const router = createRouter({
 router.beforeEach((to,from) => {
     // const token = sessionStorage.getItem('token')
     const store = useStore()
-    console.log('entrando a una ruta');
+    console.log(to.path);
     if(store.state === '' && to.path !== '/callback'){
-       window.location.href = `https://accounts.spotify.com/authorize?response_type=code&client_id=b4559562c5cc461fbc09884d689dbc82&redirect_uri=https://spotify.devmx.site/callback`
+       window.location.href = `https://accounts.spotify.com/authorize?response_type=code&client_id=b4559562c5cc461fbc09884d689dbc82&redirect_uri=http://localhost:3000/callback`
     }
     else return true
 })
